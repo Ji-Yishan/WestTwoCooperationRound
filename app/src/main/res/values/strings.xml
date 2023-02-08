@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">轻松筹</string>
+    <string name="app_login">登录</string>
+    <string name="app_register">注册</string>
+    <string name="account">请输入用户名</string>
+    <string name="password">请输入密码</string>
+    <string name="yonghu">普通用户</string>
+    <string name="guanli">管理员</string>
+    <string name="guanlinum">请输入管理员身份码</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
