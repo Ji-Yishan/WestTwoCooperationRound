@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cooperation.dao.AdministratorMapper">
+    <update id="auditProject" parameterType="map">
+        update west2cooperation.project set audit=#{audit} where pname=#{pname} and west2cooperation.project.username=#{username};
+    </update>
+    <delete id="deleteProject" parameterType="String">
+        delete from west2cooperation.project where pname=#{pname} and west2cooperation.project.username=#{username};
+    </delete>
+
+</mapper>

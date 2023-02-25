@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cooperation.dao.UserMapper">
+    <select id="selectUser" resultType="org.cooperation.pojo.User">
+        select * from west2cooperation.user
+    </select>
+    <insert id="addUser" parameterType="User" >
+        insert into west2cooperation.user(username,password)
+        values (#{username},#{password});
+    </insert>
+    <update id="updateUser" parameterType="map">
+        update west2cooperation.user
+        <set>
+            <if test="username != null">
+                username=#{newName},
+            </if>
+            <if test="contact != null">
+                contact=#{contact},
+            </if>
+            <if test="idcard != null">
+                idcard=#{idcard},
+            </if>
+        </set>
+        where west2cooperation.user.username=#{username};
+    </update>
+    <select id="queryUserByName" parameterType="String" resultType="User">
+        select * from west2cooperation.user where username=#{username};
+    </select>
+</mapper>

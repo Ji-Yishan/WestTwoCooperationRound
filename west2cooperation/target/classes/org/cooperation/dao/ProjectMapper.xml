@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.cooperation.dao.ProjectMapper">
+    <select id="selectProject" parameterType="int" resultType="org.cooperation.pojo.Project">
+        select * from west2cooperation.project limit #{curPage},#{pageSize};
+    </select>
+    <update id="updateProject" parameterType="map">
+        update west2cooperation.project
+        <set>
+            <if test="pname != null">
+                pname=#{pname},
+            </if>
+            <if test="pLocation != null">
+                pLocation=#{pLocation},
+            </if>
+            <if test="content != null">
+                content=#{content},
+            </if>
+            <if test="targetFund != null">
+                targetFund=#{targetFund},
+            </if>
+        </set>
+        where west2cooperation.project.username=#{username};
+    </update>
+    <insert id="addProject" parameterType="Project">
+        insert into west2cooperation.project(pname,pLocation,content,targetFund,username)
+        values (#{pname},#{pLocation},#{content},#{targetFund},#{username});
+    </insert>
+    <delete id="deleteProject" parameterType="String">
+        delete from west2cooperation.project where pname=#{pname} and west2cooperation.project.username=#{username};
+    </delete>
+    <select id="queryCurrentFund" parameterType="String" resultType="Integer">
+        select fund from west2cooperation.project where pname=#{pname} and west2cooperation.project.username=#{username};
+    </select>
+    <update id="updateCurrentFund" parameterType="map">
+        update west2cooperation.project set fund=#{fund} where pname=#{pname} and west2cooperation.project.username=#{username};
+    </update>
+    <select id="queryProjectByName" parameterType="String" resultType="org.cooperation.pojo.Project">
+        select * from west2cooperation.project where pname=#{pname} limit #{curPage},#{pageSize};
+    </select>
+    <select id="queryAudit" parameterType="String" resultType="int">
+        select audit from west2cooperation.project  where pname=#{pname} and west2cooperation.project.username=#{username};
+    </select>
+</mapper>

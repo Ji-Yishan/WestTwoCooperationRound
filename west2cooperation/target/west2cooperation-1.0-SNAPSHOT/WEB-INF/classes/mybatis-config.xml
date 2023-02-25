@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+            <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+    <typeAliases>
+        <package name="org.cooperation.pojo"/>
+    </typeAliases>
+    <mappers>
+        <mapper resource="org/cooperation/dao/UserMapper.xml"/>
+        <mapper resource="org/cooperation/dao/ProjectMapper.xml"/>
+        <mapper resource="org/cooperation/dao/AdministratorMapper.xml"/>
+    </mappers>
+
+</configuration>
