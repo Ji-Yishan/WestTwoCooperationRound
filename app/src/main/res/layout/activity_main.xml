@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/login_back"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_marginBottom="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="44dp"
+        android:paddingRight="44dp">
+
+        <Button
+            android:id="@+id/yonghu"
+            android:background="@drawable/login_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="@string/yonghu"
+            android:textColor="#ffffffff"
+            android:textSize="20sp"
+            />
+        <Button
+            android:id="@+id/guanli"
+            android:background="@drawable/login_btn"
+            android:layout_alignParentRight="true"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:text="@string/guanli"
+            android:textColor="#ffffffff"
+            android:textSize="20sp"
+            />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/purple_200"
+        android:textSize="60sp" />
+
+</RelativeLayout>

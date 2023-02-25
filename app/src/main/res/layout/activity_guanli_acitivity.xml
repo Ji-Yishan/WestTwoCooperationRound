@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/login_back"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/login"
+        android:gravity="center"
+        android:layout_marginTop="278dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:src="@drawable/ic_baseline_account_box_24" />
+
+            <EditText
+                android:id="@+id/log_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@null"
+                android:hint="@string/guanlinum"
+                android:textColor="@color/black"
+                android:textColorHint="#bcbcbc"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="67dp"
+            android:layout_marginRight="18dp"
+            android:background="@drawable/login_btn"
+            android:text="@string/app_login"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
