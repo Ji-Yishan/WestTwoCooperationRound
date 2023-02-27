@@ -20,7 +20,7 @@ public class UserInterceptor implements HandlerInterceptor {
         if(session.getAttribute("username") != null) {
             return true;
         }
-        request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+
         return false;
     }
 

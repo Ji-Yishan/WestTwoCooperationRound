@@ -7,28 +7,28 @@
         select * from west2cooperation.user
     </select>
     <insert id="addUser" parameterType="User" >
-        insert into west2cooperation.user(username,password)
-        values (#{username},#{password});
+        insert into west2cooperation.user(username,password,userid)
+        values (#{username},#{password},#{userid});
     </insert>
-    <update id="updateUser" parameterType="map">
-        update west2cooperation.user
-        <set>
-            <if test="username != null">
-                username=#{newName},
-            </if>
-            <if test="contact != null">
-                contact=#{contact},
-            </if>
-            <if test="idcard != null">
-                idcard=#{idcard},
-            </if>
-        </set>
-        where west2cooperation.user.username=#{username};
+    <update id="updateUser" parameterType="User">
+        update west2cooperation.user set contact=#{contact},idcard=#{idcard},username=#{username}  where userid= #{userid};
     </update>
-    <select id="queryUserByName" parameterType="String" resultType="User">
+    <update id="updateUserN" parameterType="String">
+        update west2cooperation.user set username=#{namd}  where username= #{username};
+    </update>
+    <select id="queryUserByName" parameterType="String" resultType="org.cooperation.pojo.User">
         select * from west2cooperation.user where username=#{username};
     </select>
+    <select id="queryId" parameterType="String" resultType="String">
+        select idcard from west2cooperation.user where username=#{username};
+    </select>
     <select id="queryDegree" parameterType="String" resultType="int">
-        select degree from west2cooperation.user where username=#{username};
+        select degree from west2cooperation.user where userid=#{userid};
+    </select>
+    <select id="queryProfile" parameterType="String" resultType="map">
+        select idcard,username,contact from west2cooperation.user where userid=#{userid};
+    </select>
+    <select id="queryUUID" parameterType="String" resultType="String">
+        select userid from west2cooperation.user where username=#{username} and password=#{password};
     </select>
 </mapper>

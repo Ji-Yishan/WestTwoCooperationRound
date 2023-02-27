@@ -5,11 +5,15 @@ import org.cooperation.dao.UserMapper;
 import org.cooperation.pojo.Project;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProjectServiceImpl implements ProjectService{
     private ProjectMapper projectMapper;
     public void setProjectMapper(ProjectMapper projectMapper){
         this.projectMapper=projectMapper;
+    }
+    public String queryUUID(String pname,String username){
+        return projectMapper.queryUUID(pname,username);
     }
     public List<Project> selectProject(int curPage,int pageSize) {
         return projectMapper.selectProject(curPage,pageSize);
@@ -24,23 +28,23 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
 
-    public int deleteProject(String pname, String username) {
-        return projectMapper.deleteProject(pname,username);
+    public int deleteProject(String username,String pname) {
+        return projectMapper.deleteProject(username,pname);
     }
 
-    public int queryCurrentFund(String pname, String username) {
-        return projectMapper.queryCurrentFund(pname,username);
+    public Map queryCurrentFund(String pid) {
+        return projectMapper.queryCurrentFund(pid);
     }
 
-    public int updateCurrentFund(int fund, String pname, String username) {
-        return projectMapper.updateCurrentFund(fund,pname,username);
+    public int updateCurrentFund(int fund, String pid) {
+        return projectMapper.updateCurrentFund(fund,pid);
     }
 
-    public List<Project> queryProjectByName(String pname,int curPage,int pageSize) {
-        return projectMapper.queryProjectByName(pname,curPage,pageSize);
+    public List<Project> queryProjectByName(String pname) {
+        return projectMapper.queryProjectByName(pname);
     }
 
-    public int queryAudit(String pname, String username){
-        return projectMapper.queryAudit(pname,username);
+    public Map queryAudit(String pid){
+        return projectMapper.queryAudit(pid);
     }
 }

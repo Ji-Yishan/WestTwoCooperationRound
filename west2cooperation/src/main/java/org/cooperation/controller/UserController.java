@@ -1,5 +1,7 @@
 package org.cooperation.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.ibatis.annotations.Param;
 import org.cooperation.pojo.User;
 import org.cooperation.service.UserService;
@@ -9,58 +11,69 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
 @Autowired
 @Qualifier("UserServiceImpl")
     private UserService userService ;
-    String username="hao";
 
 
-    @RequestMapping("/select")
-    public String selectUser(Model model){
-        List<User> list=userService.selectUser();
-        model.addAttribute("msg",list);
-    for(User user:list){
-        System.out.println(user);
 
-         }
-    return "show";
-    }
+//    @RequestMapping("/select")
+//    public String selectUser(Model model){
+//        List<User> list=userService.selectUser();
+//        model.addAttribute("msg",list);
+//    for(User user:list){
+//        System.out.println(user);
+//
+//         }
+//    return "show";
+//    }
 
-    @RequestMapping("/add")
-    public String addUser(Model model){
-        User user=new User("aba","12345");
-        userService.addUser(user);
-        model.addAttribute("msg","成功添加");
-        return "show";
-    }
+
     @RequestMapping("/update")
-    public String updateUser(Model model){
-        String username=this.username;
-        User user=new User(username,"no",1534563,"350303030300303030");
+    public void updateUser(HttpSession session, HttpServletRequest req){
+        String userid=session.getAttribute("userid").toString();
+        String contact=req.getParameter("Connect").toString();
+        String idcard=req.getParameter("id");
+        String username=req.getParameter("Name").toString();
+        User user=new User(userid,username,contact,idcard);
         userService.updateUser(user);
-        model.addAttribute("msg","成功更新");
-        return "show";
     }
-    @RequestMapping("/query")
-    public String queryUserByName(Model model){
-        List<User> user=userService.queryUserByName(username);
-        model.addAttribute("msg",user);
-        return "show";
+    private static Map<Integer, String> usermap = null;
+    @ResponseBody
+    @RequestMapping("/profile")
+    public String queryUserByName(Model model,HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        String userid=session.getAttribute("userid").toString();
+        Map user=userService.queryProfile(userid);
+        String str3=mapper.writeValueAsString(user);
+        return str3;
+
+
     }
-    @RequestMapping("/degree")
-    public String queryDegree(Model model){
-        int degree=userService.queryDegree(username);
-        model.addAttribute("msg",degree);
-        return "show";
-    }
+//    @RequestMapping("/degree")
+//    public String queryDegree(Model model){
+//        int degree=userService.queryDegree("username");
+//        model.addAttribute("msg",degree);
+//        return "show";
+//    }
 
 }

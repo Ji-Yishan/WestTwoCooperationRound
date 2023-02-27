@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/admin")
 public class AdministratorController {
@@ -15,15 +18,21 @@ public class AdministratorController {
     @Qualifier("AdministratorServiceImpl")
     private AdministratorService administratorService ;
     @RequestMapping("/audit")
-    public String auditProject(Model model){
-        administratorService.auditProject("怨种大学生起不来床","sleep",1);
-        model.addAttribute("msg","审核成功");
-        return "show";
+    public void auditProject(Model model, HttpServletRequest req, HttpSession session){
+        int audit=Integer.parseInt(req.getParameter("audit"));
+        String pname=req.getParameter("pname");
+        String username=req.getParameter("username");
+        int degree=Integer.parseInt(session.getAttribute("degree").toString());
+        if(degree==1){
+            administratorService.auditProject(pname,username,audit);
+        }
+
     }
     @RequestMapping("/delete")
-    public String deleteProject(Model model){
-        administratorService.deleteProject("aba","ab");
-        model.addAttribute("msg","删除成功");
-        return "show";
+    public void deleteProject(Model model,HttpServletRequest req){
+        String pname=req.getParameter("pname");
+        String username=req.getParameter("username");
+        administratorService.deleteProject(pname,username);
+
     }
 }

@@ -14,6 +14,7 @@ public class Project {
     private int audit;
     private String username;
     private int pageSize;
+    private String pid;
 
     @Override
     public String toString() {
@@ -28,7 +29,7 @@ public class Project {
                 '}';
     }
 
-    public Project(String pname, String pLocation, String content, int targetFund, int fund, int audit, String username) {
+    public Project(String pname, String pLocation, String content, int targetFund, int fund, int audit, String username,String pid) {
         this.pname = pname;
         this.pLocation = pLocation;
         this.content = content;
@@ -36,15 +37,20 @@ public class Project {
         this.fund = fund;
         this.audit = audit;
         this.username = username;
+        this.pid=pid;
     }
-    public Project(String pname, String pLocation, String content, int targetFund,String username){
+    public Project(String pid,String pname, String content, int targetFund,String username){
         this.pname = pname;
-        this.pLocation = pLocation;
+        this.pid=pid;
         this.content = content;
         this.targetFund = targetFund;
         this.username = username;
     }
 
+    public Project(String pname,String username){
+        this.pname = pname;
+        this.username = username;
+    }
     public String getPname() {
         return pname;
     }

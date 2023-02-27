@@ -15,10 +15,10 @@ public class LogoutController {
     @Qualifier("UserServiceImpl")
     private UserService userService ;
     @RequestMapping("/logout")
-    public String logout(Model model, HttpSession session){
+    public void logout(Model model, HttpSession session){
             session.invalidate();
             model.addAttribute("msg","成功退出");
 
-        return "show";
+
     }
 }

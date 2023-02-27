@@ -11,28 +11,30 @@ import lombok.NoArgsConstructor;
 public class User {
     private String username;
     private String password;
-    private int contact;
+    private String contact;
     private String idcard;
     private int degree;
     private String newName;
-
-    public User(String username, String password, int contact, String idcard, int degree) {
+    private String userid;
+    public User(String username, String password, String contact, String idcard, int degree) {
         this.username = username;
         this.password = password;
         this.contact = contact;
         this.idcard = idcard;
         this.degree = degree;
     }
-    public User(String username,String newName,int contact, String idcard){
-        this.newName=newName;
+    public User(String userid,String username,String contact, String idcard){
+        this.userid=userid;
         this.username = username;
         this.contact = contact;
         this.idcard = idcard;
     }
-    public User(String username, String password){
+    public User(String username, String password,String userid){
         this.username = username;
         this.password = password;
+        this.userid = userid;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -41,7 +43,7 @@ public class User {
         this.password = password;
     }
 
-    public void setContact(int contact) {
+    public void setContact(String contact) {
         this.contact = contact;
     }
 
@@ -72,7 +74,7 @@ public class User {
         return password;
     }
 
-    public int getContact() {
+    public String getContact() {
         return contact;
     }
 
