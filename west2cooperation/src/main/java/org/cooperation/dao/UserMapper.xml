@@ -10,11 +10,8 @@
         insert into west2cooperation.user(username,password,userid)
         values (#{username},#{password},#{userid});
     </insert>
-    <update id="updateUser" parameterType="User">
+    <update id="updateUser" parameterType="User" >
         update west2cooperation.user set contact=#{contact},idcard=#{idcard},username=#{username}  where userid= #{userid};
-    </update>
-    <update id="updateUserN" parameterType="String">
-        update west2cooperation.user set username=#{namd}  where username= #{username};
     </update>
     <select id="queryUserByName" parameterType="String" resultType="org.cooperation.pojo.User">
         select * from west2cooperation.user where username=#{username};

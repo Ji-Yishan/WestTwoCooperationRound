@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.cooperation.dao.AdministratorMapper">
     <update id="auditProject" parameterType="map">
-        update west2cooperation.project set audit=#{audit} where pname=#{pname} and west2cooperation.project.username=#{username};
+        update west2cooperation.project set audit=#{audit} where pid=#{pid};
     </update>
     <delete id="deleteProject" parameterType="String">
-        delete from west2cooperation.project where pname=#{pname} and west2cooperation.project.username=#{username};
+        delete from west2cooperation.project where pid=#{pid};
     </delete>
 
 </mapper>

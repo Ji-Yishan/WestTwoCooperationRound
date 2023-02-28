@@ -42,6 +42,7 @@ public class Project {
     public Project(String pid,String pname, String content, int targetFund,String username){
         this.pname = pname;
         this.pid=pid;
+//        this.pLocation = pLocation;
         this.content = content;
         this.targetFund = targetFund;
         this.username = username;

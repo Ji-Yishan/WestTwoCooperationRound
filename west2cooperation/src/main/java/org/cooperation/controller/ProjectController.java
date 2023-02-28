@@ -10,13 +10,14 @@ import org.cooperation.utils.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+
 @RequestMapping("/project")
 public class ProjectController {
     @Autowired
@@ -33,20 +35,91 @@ public class ProjectController {
     @Qualifier("UserServiceImpl")
     private UserService userService ;
     int pageSize=10;
-    int curpage;
-    int curPage=(curpage-1)*pageSize;
-    String username="不要早八";
-    @RequestMapping("/select")
+
+
+    @GetMapping("/select/{curPage}")
     @ResponseBody
-    public String selectProject(HttpSession session, HttpServletRequest req) throws JsonProcessingException {
+    public String selectProject(@PathVariable int curPage, HttpSession session, HttpServletRequest req) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        int curPage1=Integer.parseInt(req.getParameter("curPage"));
-        int curPage=(curPage1-1)*pageSize;
+         curPage=(curPage-1)*pageSize;
         List<Project> project=projectService.selectProject(curPage,10);
+
         String str=mapper.writeValueAsString(project);
         return str;
     }
-//    @RequestMapping("/update")
+
+    @PutMapping(value = "/add/{pname}/{reason}/{need}/{inId}")
+    @ResponseBody
+    public void addProject( HttpServletRequest request, HttpServletResponse response,
+                           @PathVariable String pname, @PathVariable String reason, @PathVariable int need, @PathVariable String inId) throws IOException {
+        String pid= UUID.getUUID();
+        response.setContentType("multipart/form-data");
+        String username=request.getSession().getAttribute("username").toString();
+        List<String> ids=userService.queryId(username);
+        for(String id: ids){
+            if( id.equals(inId)){
+                Project project=new Project(pid,pname,reason,need,username);
+                projectService.addProject(project);
+            }
+        }
+
+
+    }
+    @ResponseBody
+    @PostMapping("/picture/{pname}")
+    public String  fileUpload2(@RequestParam("file") CommonsMultipartFile file, @PathVariable("pname") String pname,
+                               HttpServletRequest request) throws IOException {
+        String path = request.getServletContext().getRealPath("/upload");
+        ObjectMapper mapper = new ObjectMapper();
+        String username=request.getSession().getAttribute("username").toString();
+        String pid=projectService.queryUUID(pname,username);
+        File realPath = new File(path);
+        if (!realPath.exists()){
+            realPath.mkdir();
+        }
+        System.out.println(path);
+        System.out.println("上传文件保存地址："+realPath);
+        projectService.setPlocation(path,pid);
+        file.transferTo(new File(realPath +"/"+ file.getOriginalFilename()));
+        String str=mapper.writeValueAsString(path);
+        return str;
+    }
+    @DeleteMapping("/delete/{pid}")
+    public void deleteProject(@PathVariable String pid){
+        projectService.deleteProject(pid);
+    }
+    @GetMapping("/queryFund/{pid}")
+    @ResponseBody
+    public String queryCurrentFund(@PathVariable String pid) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Map fund=projectService.queryCurrentFund(pid);
+        String str=mapper.writeValueAsString(fund);
+        return str;
+    }
+    @PutMapping("/updateFund/{fund}/{pid}")
+    public void updateCurrentFund(@PathVariable int fund,@PathVariable String pid,HttpServletRequest req){
+        projectService.updateCurrentFund(fund,pid);
+
+
+    }
+    @GetMapping("/query/{name}")
+    @ResponseBody
+    public String queryProjectByName(@PathVariable String name) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        name="%"+name+"%";
+        List<Project> list =projectService.queryProjectByName(name);
+        String str=mapper.writeValueAsString(list);
+        return str;
+    }
+    @GetMapping("/audit/{pid}")
+    @ResponseBody
+    public String queryAudit(@PathVariable String pid) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        Map audit=projectService.queryAudit(pid);
+        String str=mapper.writeValueAsString(audit);
+        return str;
+    }
+    //    @RequestMapping("/update")
 //    public String updateProject(Model model,@RequestParam("file") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
 //        String f=fileUpload2(file,request);
 //        String username=this.username;
@@ -55,97 +128,4 @@ public class ProjectController {
 //        model.addAttribute("msg","更新成功");
 //        return "show";
 //    }
-    @RequestMapping("/add")
-    public void addProject(Model model, HttpServletRequest request) throws IOException {
-        String pid= UUID.getUUID();
-        String pname=request.getParameter("fundname");
-        String content=request.getParameter("inforreason");
-        int targetFund=Integer.parseInt(request.getParameter("need"));
-        String username=request.getSession().getAttribute("username").toString();
-        String inId=request.getParameter("id");
-        String id=userService.queryId(username);
-        if(id.equals(inId)){
-            Project project=new Project(pid,pname,content,targetFund,username);
-            projectService.addProject(project);
-        }
-
-        ObjectMapper mapper = new ObjectMapper();
-
-    }
-    @RequestMapping("/picture")
-    public String  fileUpload2(@RequestParam("inforimag") CommonsMultipartFile file, HttpServletRequest request) throws IOException {
-        System.out.println("jiijijijiji");
-        //上传路径保存设置
-        String path = request.getServletContext().getRealPath("/upload");
-        File realPath = new File(path);
-        if (!realPath.exists()){
-            realPath.mkdir();
-        }
-        //上传文件地址
-        System.out.println("上传文件保存地址："+realPath);
-
-        //通过CommonsMultipartFile的方法直接写文件（注意这个时候）
-        file.transferTo(new File(realPath +"/"+ file.getOriginalFilename()));
-        String f=realPath.toString();
-        return f;
-    }
-    @RequestMapping("/delete")
-    public void deleteProject(HttpServletRequest req,HttpSession session){
-        String pname=req.getParameter("id");
-        String username=req.getParameter("username");
-        projectService.deleteProject(username,pname);
-    }
-//    @RequestMapping("/check")
-//    @ResponseBody
-//    public boolean queryId(HttpServletRequest req,HttpSession session){
-//        String inId=req.getParameter("account");
-//        String username=session.getAttribute("username").toString();
-//        String id=userService.queryId(username);
-//        if(id.equals(inId)){
-//            return true;
-//        }
-//        return false;
-//    }
-    @RequestMapping("/queryFund")
-    @ResponseBody
-    public String queryCurrentFund(Model model,HttpServletRequest req) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String pname=req.getParameter("raise");
-        String username=req.getParameter("id");
-        String pid=projectService.queryUUID(pname,username);
-        Map fund=projectService.queryCurrentFund(pid);
-        String str=mapper.writeValueAsString(fund);
-        return str;
-    }
-    @RequestMapping("/updateFund")
-    public void updateCurrentFund(Model model,HttpServletRequest req){
-        int fund=Integer.parseInt(req.getParameter("money"));
-        String pname=req.getParameter("id");
-        String username=req.getParameter("username");
-        String pid=projectService.queryUUID(pname,username);
-        projectService.updateCurrentFund(fund,pid);
-
-
-    }
-    @RequestMapping("/query")
-    @ResponseBody
-    public String queryProjectByName(Model model,HttpServletRequest req) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String username=req.getParameter("name");
-        username="%"+username+"%";
-        List<Project> list =projectService.queryProjectByName(username);
-        String str=mapper.writeValueAsString(list);
-        return str;
-    }
-    @RequestMapping("/audit")
-    @ResponseBody
-    public String queryAudit(Model model,HttpServletRequest req) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        String username=req.getParameter("username");
-        String pname=req.getParameter("pname");
-        String pid=projectService.queryUUID(pname,username);
-        Map audit=projectService.queryAudit(pid);
-        String str=mapper.writeValueAsString(audit);
-        return str;
-    }
 }

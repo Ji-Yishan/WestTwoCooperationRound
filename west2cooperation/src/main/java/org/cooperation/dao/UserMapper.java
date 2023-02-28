@@ -14,6 +14,6 @@ public interface UserMapper {
     List<User> queryUserByName(String username);
     int queryDegree(String userid);
     Map queryProfile(String userid);
-    String queryId(String username);
+    List<String> queryId(String username);
     String queryUUID(@Param("username") String username,@Param("password") String password);
 }

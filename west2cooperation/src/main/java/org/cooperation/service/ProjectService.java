@@ -12,10 +12,11 @@ public interface ProjectService {
     int updateProject(Project project);
     int addProject(Project project);
     String queryUUID(String pname,String username);
-    int deleteProject(String username,String pname);
+    int deleteProject(String pid);
     Map queryCurrentFund(String pid);
 
     int updateCurrentFund(int fund,String pid);
     List<Project> queryProjectByName(String pname);
     Map queryAudit(String pid);
+    int setPlocation(String pLocation,String pid);
 }

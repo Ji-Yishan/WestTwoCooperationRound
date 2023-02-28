@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 public class AdministratorInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        if (session.getAttribute("degree").equals(1)) {
+        if (session.getAttribute("degree").toString().equals("1")) {
             return true;
         }
         request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);

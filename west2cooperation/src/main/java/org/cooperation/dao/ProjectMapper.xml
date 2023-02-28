@@ -6,6 +6,31 @@
     <select id="selectProject"  resultType="org.cooperation.pojo.Project">
         select * from west2cooperation.project where audit=1 limit #{curPage},#{pageSize};
     </select>
+    <insert id="addProject" parameterType="Project">
+        insert into west2cooperation.project(pid,pname,content,targetFund,username)
+        values (#{pid},#{pname},#{content},#{targetFund},#{username});
+    </insert>
+    <delete id="deleteProject" parameterType="String">
+        delete from west2cooperation.project where pid=#{pid} ;
+    </delete>
+    <select id="queryCurrentFund" parameterType="String" resultType="map">
+        select fund from west2cooperation.project where pid=#{pid} ;
+    </select>
+    <update id="updateCurrentFund" parameterType="map">
+        update west2cooperation.project set fund=fund+#{fund} where pid=#{pid} ;
+    </update>
+    <select id="queryProjectByName" parameterType="String" resultType="org.cooperation.pojo.Project">
+        select * from west2cooperation.project where pname like #{pname} ;
+    </select>
+    <select id="queryAudit" parameterType="String" resultType="map">
+        select audit from west2cooperation.project  where pid=#{pid} ;
+    </select>
+    <select id="queryUUID" parameterType="String" resultType="String">
+        select pid from west2cooperation.project where pname=#{pname} and username=#{username};
+    </select>
+    <update id="setPlocation" parameterType="String">
+        update west2cooperation.project set pLocation=#{pLocation} where pid=#{pid};
+    </update>
     <update id="updateProject" parameterType="map">
         update west2cooperation.project
         <set>
@@ -24,26 +49,4 @@
         </set>
         where west2cooperation.project.username=#{username};
     </update>
-    <insert id="addProject" parameterType="Project">
-        insert into west2cooperation.project(pid,pname,content,targetFund,username)
-        values (#{pid},#{pname},#{content},#{targetFund},#{username});
-    </insert>
-    <delete id="deleteProject" parameterType="String">
-        delete from west2cooperation.project where username=#{username} and pname=#{pname} ;
-    </delete>
-    <select id="queryCurrentFund" parameterType="String" resultType="map">
-        select fund from west2cooperation.project where pid=#{pid} ;
-    </select>
-    <update id="updateCurrentFund" parameterType="map">
-        update west2cooperation.project set fund=fund+#{fund} where pid=#{pid} ;
-    </update>
-    <select id="queryProjectByName" parameterType="String" resultType="org.cooperation.pojo.Project">
-        select * from west2cooperation.project where pname like #{pname} ;
-    </select>
-    <select id="queryAudit" parameterType="String" resultType="map">
-        select audit from west2cooperation.project  where pid=#{pid} ;
-    </select>
-    <select id="queryUUID" parameterType="String" resultType="String">
-        select pid from west2cooperation.project where pname=#{pname} and username=#{username};
-    </select>
 </mapper>

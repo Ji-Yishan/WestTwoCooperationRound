@@ -9,11 +9,11 @@ public class AdministratorServiceImpl implements AdministratorService{
     }
 
 
-    public int auditProject(String pname, String username, int audit) {
-        return administratorMapper.auditProject(pname,username,audit);
+    public int auditProject(String pid, int audit) {
+        return administratorMapper.auditProject(pid,audit);
     }
 
-    public int deleteProject(String pname, String username) {
-        return administratorMapper.deleteProject(pname,username);
+    public int deleteProject(String pid) {
+        return administratorMapper.deleteProject(pid);
     }
 }

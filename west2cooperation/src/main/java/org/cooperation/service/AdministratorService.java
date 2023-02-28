@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AdministratorService {
-    int auditProject(@Param("pname") String pname, @Param("username") String username, @Param("audit") int audit);
-    int deleteProject(@Param("pname") String pname,@Param("username") String username);
+    int auditProject(@Param("pid") String pid, @Param("audit") int audit);
+    int deleteProject( String pid);
 }

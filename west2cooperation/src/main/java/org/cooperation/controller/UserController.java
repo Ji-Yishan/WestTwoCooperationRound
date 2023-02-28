@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,33 +31,21 @@ public class UserController {
 @Qualifier("UserServiceImpl")
     private UserService userService ;
 
-
-
-//    @RequestMapping("/select")
-//    public String selectUser(Model model){
-//        List<User> list=userService.selectUser();
-//        model.addAttribute("msg",list);
-//    for(User user:list){
-//        System.out.println(user);
-//
-//         }
-//    return "show";
-//    }
-
-
-    @RequestMapping("/update")
-    public void updateUser(HttpSession session, HttpServletRequest req){
+    @PutMapping(value = "/update/{newName}/{contact}/{id}")
+    @ResponseBody
+    public String updateUser(HttpSession session, @PathVariable String newName,@PathVariable String contact,@PathVariable String id) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
         String userid=session.getAttribute("userid").toString();
-        String contact=req.getParameter("Connect").toString();
-        String idcard=req.getParameter("id");
-        String username=req.getParameter("Name").toString();
-        User user=new User(userid,username,contact,idcard);
+        System.out.println(userid);
+        User user=new User(userid,newName,contact,id);
         userService.updateUser(user);
+        String str=mapper.writeValueAsString(user);
+        return str;
     }
     private static Map<Integer, String> usermap = null;
     @ResponseBody
-    @RequestMapping("/profile")
-    public String queryUserByName(Model model,HttpSession session, HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    @GetMapping("/profile")
+    public String queryUserByName(HttpSession session) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         String userid=session.getAttribute("userid").toString();
         Map user=userService.queryProfile(userid);
@@ -75,5 +60,19 @@ public class UserController {
 //        model.addAttribute("msg",degree);
 //        return "show";
 //    }
+
+
+
+//    @RequestMapping("/select")
+//    public String selectUser(Model model){
+//        List<User> list=userService.selectUser();
+//        model.addAttribute("msg",list);
+//    for(User user:list){
+//        System.out.println(user);
+//
+//         }
+//    return "show";
+//    }
+
 
 }

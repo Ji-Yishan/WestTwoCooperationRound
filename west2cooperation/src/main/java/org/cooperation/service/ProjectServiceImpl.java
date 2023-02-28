@@ -18,7 +18,6 @@ public class ProjectServiceImpl implements ProjectService{
     public List<Project> selectProject(int curPage,int pageSize) {
         return projectMapper.selectProject(curPage,pageSize);
     }
-
     public int updateProject(Project project) {
         return projectMapper.updateProject(project);
     }
@@ -28,8 +27,8 @@ public class ProjectServiceImpl implements ProjectService{
     }
 
 
-    public int deleteProject(String username,String pname) {
-        return projectMapper.deleteProject(username,pname);
+    public int deleteProject(String pid) {
+        return projectMapper.deleteProject(pid);
     }
 
     public Map queryCurrentFund(String pid) {
@@ -42,6 +41,9 @@ public class ProjectServiceImpl implements ProjectService{
 
     public List<Project> queryProjectByName(String pname) {
         return projectMapper.queryProjectByName(pname);
+    }
+    public int setPlocation(String pLocation,String pid){
+        return projectMapper.setPlocation(pLocation,pid);
     }
 
     public Map queryAudit(String pid){

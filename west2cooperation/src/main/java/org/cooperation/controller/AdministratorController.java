@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,22 +20,16 @@ public class AdministratorController {
     @Autowired
     @Qualifier("AdministratorServiceImpl")
     private AdministratorService administratorService ;
-    @RequestMapping("/audit")
-    public void auditProject(Model model, HttpServletRequest req, HttpSession session){
-        int audit=Integer.parseInt(req.getParameter("audit"));
-        String pname=req.getParameter("pname");
-        String username=req.getParameter("username");
+    @PutMapping("/audit/{pid}/{audit}")
+    public void auditProject(@PathVariable String pid,@PathVariable int audit, HttpSession session){
         int degree=Integer.parseInt(session.getAttribute("degree").toString());
         if(degree==1){
-            administratorService.auditProject(pname,username,audit);
-        }
-
+            administratorService.auditProject(pid,audit);
+         }
     }
-    @RequestMapping("/delete")
-    public void deleteProject(Model model,HttpServletRequest req){
-        String pname=req.getParameter("pname");
-        String username=req.getParameter("username");
-        administratorService.deleteProject(pname,username);
+    @DeleteMapping("/delete/{pid}")
+    public void deleteProject(@PathVariable String pid){
+        administratorService.deleteProject(pid);
 
     }
 }

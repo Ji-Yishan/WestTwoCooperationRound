@@ -16,10 +16,8 @@ public class UserServiceImpl implements UserService {
         this.userMapper=userMapper;
     }
     public List<User> selectUser() {
-
         return userMapper.selectUser();
     }
-
     public int addUser(User user) {
         return userMapper.addUser(user);
     }
@@ -31,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public int updateUser(User user) {
         return userMapper.updateUser(user);
     }
-    public String queryId(String username){
+    public List<String> queryId(String username){
         return userMapper.queryId(username);
     }
     public List<User> queryUserByName(String username) {
@@ -42,7 +40,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.queryDegree(userid);
     }
     public Map queryProfile(String userid){
-
         return userMapper.queryProfile(userid);
     }
 }

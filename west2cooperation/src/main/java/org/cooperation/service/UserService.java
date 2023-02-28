@@ -11,7 +11,7 @@ public interface UserService {
     List<User> selectUser();
     int addUser(User user);
     int updateUser(User user);
-    String queryId(String username);
+    List<String> queryId(String username);
     List<User> queryUserByName(String username);
     int queryDegree(String userid);
     Map queryProfile(String userid);

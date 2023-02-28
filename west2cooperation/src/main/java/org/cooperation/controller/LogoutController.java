@@ -1,5 +1,7 @@
 package org.cooperation.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.cooperation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,9 +17,11 @@ public class LogoutController {
     @Qualifier("UserServiceImpl")
     private UserService userService ;
     @RequestMapping("/logout")
-    public void logout(Model model, HttpSession session){
-            session.invalidate();
-            model.addAttribute("msg","成功退出");
+    public String logout(HttpSession session) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        String str=mapper.writeValueAsString("退出登录");
+        session.invalidate();
+        return str;
 
 
     }
