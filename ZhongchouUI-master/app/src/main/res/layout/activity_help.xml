@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <EditText
+        android:id="@+id/helpmoney"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="请输入你想要出的金额"/>
+    <Button
+        android:id="@+id/btn_helpmoney"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="确定"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已筹金额："
+        android:textSize="25sp"/>
+    <TextView
+        android:id="@+id/raise"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:inputType="number"/>
+
+
+</LinearLayout>

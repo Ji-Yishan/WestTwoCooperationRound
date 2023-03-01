@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:baselineAligned="false">
+
+    <LinearLayout
+        android:id="@+id/id_info_tab"
+        android:layout_width="136dp"
+        android:layout_height="200px"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/id_info_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="false"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_home_24_select"/>
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:clickable="false"
+            android:saveEnabled="false"
+            android:text="首页"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_contact_tab"
+        android:layout_width="136dp"
+        android:layout_height="200px"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:clickable="false"
+            android:id="@+id/id_contact_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_local_hospital_24" />
+
+        <TextView
+            android:clickable="false"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:saveEnabled="false"
+            android:text="众筹"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/id_my_tab"
+        android:layout_width="136dp"
+        android:layout_height="200px"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:clickable="false"
+            android:id="@+id/id_my_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_assignment_ind_24" />
+
+        <TextView
+            android:clickable="false"
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:saveEnabled="false"
+            android:text="我的" />
+
+    </LinearLayout>
+</LinearLayout>

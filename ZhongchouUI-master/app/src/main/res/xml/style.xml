@@ -1,0 +1,7 @@
+<?xml version ="1.0" encoding ="utf-8"?><!--  Learn More about how to use App Actions: https://developer.android.com/guide/actions/index.html -->
+<style name="CustomDialog" parent="Theme.AppCompat.Dialog">
+    <item name="android:background">@color/transparent</item>
+    <item name="android:windowBackground">@color/transparent</item>
+    <item name="windowNoTitle">true</item>
+    <item name="android:windowIsFloating">true</item>
+</style>
