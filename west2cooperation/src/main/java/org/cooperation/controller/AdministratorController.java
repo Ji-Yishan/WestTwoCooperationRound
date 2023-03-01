@@ -25,6 +25,9 @@ public class AdministratorController {
         int degree=Integer.parseInt(session.getAttribute("degree").toString());
         if(degree==1){
             administratorService.auditProject(pid,audit);
+            if(audit==2){
+                administratorService.deleteProject(pid);
+            }
          }
     }
     @DeleteMapping("/delete/{pid}")

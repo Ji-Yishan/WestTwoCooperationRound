@@ -17,4 +17,5 @@ public interface ProjectMapper {
     String queryUUID(@Param("pname") String pname,@Param("username") String username);
     List<Project> queryProjectByName(@Param("pname") String pname);
     int setPlocation(@Param("pLocation") String pLocation,@Param("pid")String pid);
+    String queryUserName(String pid);
 }

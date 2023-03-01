@@ -7,6 +7,7 @@ import org.cooperation.pojo.Project;
 import org.cooperation.service.ProjectService;
 import org.cooperation.service.UserService;
 import org.cooperation.utils.UUID;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,6 @@ public class ProjectController {
         ObjectMapper mapper = new ObjectMapper();
          curPage=(curPage-1)*pageSize;
         List<Project> project=projectService.selectProject(curPage,10);
-
         String str=mapper.writeValueAsString(project);
         return str;
     }

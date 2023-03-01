@@ -87,6 +87,8 @@ GET /add
 
 PUT /user/update/{newName}/{contact}/{id}
 
+身份、联系方式录入
+
 ### 请求参数
 
 |名称|位置|类型|必选|说明|
@@ -135,6 +137,8 @@ GET /user/profile
 
 GET /project/select/{curPage}
 
+一页十个项目，项目展示用。查看项目由前端写。
+
 ### 请求参数
 
 |名称|位置|类型|必选|说明|
@@ -160,6 +164,8 @@ GET /project/select/{curPage}
 ## PUT 添加项目
 
 PUT /project/add/{pname}/{reason}/{need}/{inId}
+
+提交时要提交用户身份证明inId，与个人资料内相同才可以提交。项目添加成功自动提交审核。
 
 ### 请求参数
 
@@ -201,10 +207,11 @@ DELETE /project/delete/{pid}
 |状态码|状态码含义|说明|数据模型|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|成功|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|成功删除|Inline|
 
 ### 返回数据结构
 
-## GET 查询捐款
+## GET 查询捐款情况
 
 GET /project/queryFund/{pid}
 
@@ -249,11 +256,14 @@ PUT /project/updateFund/{fund}/{pid}
 {}
 ```
 
+> 404 Response
+
 ### 返回结果
 
 |状态码|状态码含义|说明|数据模型|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|成功|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|捐款成功|Inline|
 
 ### 返回数据结构
 
@@ -321,11 +331,14 @@ GET /logout
 {}
 ```
 
+> 404 Response
+
 ### 返回结果
 
 |状态码|状态码含义|说明|数据模型|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|成功|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|退出成功|Inline|
 
 ### 返回数据结构
 
@@ -348,11 +361,14 @@ PUT /admin/audit/{pid}/{audit}
 {}
 ```
 
+> 404 Response
+
 ### 返回结果
 
 |状态码|状态码含义|说明|数据模型|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|成功|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|审核成功|Inline|
 
 ### 返回数据结构
 
@@ -374,11 +390,14 @@ DELETE /admin/delete/{pid}
 {}
 ```
 
+> 404 Response
+
 ### 返回结果
 
 |状态码|状态码含义|说明|数据模型|
 |---|---|---|---|
 |200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|成功|Inline|
+|404|[Not Found](https://tools.ietf.org/html/rfc7231#section-6.5.4)|删除成功|Inline|
 
 ### 返回数据结构
 

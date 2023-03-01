@@ -25,11 +25,11 @@ public class UserInterceptor implements HandlerInterceptor {
     }
 
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println("----处理后-------------------");
+        System.out.println("----用户处理后-------------------");
 
     }
 
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        System.out.println("----清理-------------------");
+        System.out.println("----用户清理-------------------");
     }
 }
